@@ -112,7 +112,7 @@ def push_performance_new_list(con, xml, performance_id):
 # performance_id 리스트를 구하는 함수
 def get_performance_id_list(con):
     cur = con.cursor()
-    cur.execute('select id from performance where save = "0"')
+    cur.execute('select id from performance where save = "1"')
     results = cur.fetchall()        
     id_list=[]    
     for result in results:
