@@ -1,9 +1,9 @@
-import PerformanceCard from "@/app/components/PerformanceCard";
+import PerformanceList from "@/app/components/PerformanceList";
 import db from "@/lib/performance";
 
 export default async function PerformancesPage() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/performances`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/performances?search=피아노,piano`,
     { cache: "no-store" }
   );
 
@@ -11,11 +11,8 @@ export default async function PerformancesPage() {
   const performances = data.Response?.performance_list || [];
 
   return (
-    <div>
-      <h1>공연 목록</h1>
-      {performances.map((p) => (
-        <PerformanceCard key={p.id} performance={p} />
-      ))}
-    </div>
+    <main>
+      <PerformanceList performances={performances} />
+    </main>
   );
 }
