@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import PerformanceCard, { PerformanceType } from "./PerformanceCard";
 import Navbar from "./Navbar";
 
@@ -6,35 +9,64 @@ type Props = {
 };
 
 export default function PerformanceList({ performances = [] }: Props) {
+  const [selectedLevel, setSelectedLevel] = useState<
+    "WORLD" | "NATIONAL" | "RISING"
+  >("WORLD");
+
+  const filteredPerformances = performances.filter(
+    (p) => p.famous_level === selectedLevel
+  );
+
   return (
     <div className="bg-[#b99895] min-h-screen">
       <Navbar />
+      <br></br>
 
-      {/* 1. 필터 버튼 섹션: 너비 제한 및 크기 축소 */}
+      {/* 필터 버튼 */}
       <section className="max-w-[1200px] mx-auto pt-[120px] px-10">
-        {/* mx-auto와 max-w-4xl을 사용하여 버튼 세트 전체가 너무 퍼지지 않게 모음 */}
         <div className="flex justify-center items-center gap-6 max-w-4xl mx-auto">
-          {/* WORLD STAR: py-4로 높이 줄임, text-lg로 폰트 축소 */}
-          <button className="flex-1 py-3.5 bg-white border-2 border-red-500 rounded-full text-red-600 font-bold text-[18px] shadow-sm hover:bg-red-50 transition-all active:scale-95">
+          <button
+            onClick={() => setSelectedLevel("WORLD")}
+            className={`flex-1 py-3.5 rounded-full font-bold text-[18px] transition-all
+              ${
+                selectedLevel === "WORLD"
+                  ? "bg-red-500 text-white"
+                  : "bg-white border-2 border-gray-300 text-red-600"
+              }`}
+          >
             WORLD STAR
           </button>
 
-          {/* NATIONAL STAR */}
-          <button className="flex-1 py-3.5 bg-white border border-gray-300 rounded-full text-[#4169E1] font-bold text-[18px] shadow-sm hover:bg-gray-50 transition-all active:scale-95">
+          <button
+            onClick={() => setSelectedLevel("NATIONAL")}
+            className={`flex-1 py-3.5 rounded-full font-bold text-[18px] transition-all
+              ${
+                selectedLevel === "NATIONAL"
+                  ? "bg-[#4169E1] text-white"
+                  : "bg-white border border-gray-300 text-[#4169E1]"
+              }`}
+          >
             NATIONAL STAR
           </button>
 
-          {/* RISING STAR */}
-          <button className="flex-1 py-3.5 bg-white border border-gray-300 rounded-full text-[#A020F0] font-bold text-[18px] shadow-sm hover:bg-gray-50 transition-all active:scale-95">
+          <button
+            onClick={() => setSelectedLevel("RISING")}
+            className={`flex-1 py-3.5 rounded-full font-bold text-[18px] transition-all
+              ${
+                selectedLevel === "RISING"
+                  ? "bg-[#A020F0] text-white"
+                  : "bg-white border border-gray-300 text-[#A020F0]"
+              }`}
+          >
             RISING STAR
           </button>
         </div>
       </section>
 
-      {/* 2. 카드 목록 섹션 */}
+      {/* 카드 목록 */}
       <main className="max-w-[1350px] mx-auto p-10 pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
-          {performances.map((item) => (
+          {filteredPerformances.map((item) => (
             <PerformanceCard key={item.id} performance={item} />
           ))}
         </div>

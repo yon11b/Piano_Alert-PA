@@ -3,7 +3,7 @@ import db from "@/lib/performance";
 
 export default async function PerformancesPage() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/performances?search=피아노,piano`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/performances`,
     { cache: "no-store" }
   );
 

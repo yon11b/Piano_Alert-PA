@@ -57,6 +57,15 @@ export default class Performance extends Model {
           defaultValue: "0",
           comment: "완전 저장 여부",
         },
+        famous_level: {
+          type: DataTypes.ENUM("WORLD", "NATIONAL", "RISING", "NEWBEE"),
+          defaultValue: "NEWBEE",
+          comment: "유명한 정도",
+        },
+        composer: {
+          type: DataTypes.STRING,
+          comment: "연주할 곡의 작곡가",
+        },
       },
       {
         sequelize,

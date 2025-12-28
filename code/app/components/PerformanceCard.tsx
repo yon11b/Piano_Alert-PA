@@ -2,7 +2,8 @@
 export type PerformanceType = {
   id: number;
   title: string;
-  date: string;
+  date_start: string;
+  date_finish: string;
   time: string;
   price: string;
   cast: string;
