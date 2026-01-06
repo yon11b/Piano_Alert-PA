@@ -6,6 +6,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const pageNum = parseInt(searchParams.get("page") || "1", 10);
   const searchRaw = searchParams.get("search") || "";
+  const famous_level = searchParams.get("famous") || "";
 
   const limit = 1000;
   const offset = limit * (pageNum - 1);
@@ -14,6 +15,9 @@ export async function GET(req: NextRequest) {
     const whereCondition: any = {
       save: 1,
     };
+    if (famous_level) {
+      whereCondition.famous_level = famous_level;
+    }
 
     // 검색어가 있을 경우 처리
     if (searchRaw) {
@@ -33,7 +37,7 @@ export async function GET(req: NextRequest) {
 
     const { count, rows } = await db.Performance.findAndCountAll({
       where: whereCondition,
-      order: [["date_finish_unix", "ASC"]],
+      order: [["date_finish_unix", "DESC"]],
       limit: limit,
       offset: offset,
     });
