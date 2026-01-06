@@ -39,11 +39,13 @@ export default function PerformanceCard({ performance }: { performance: any }) {
           <div className="grid grid-cols-[60px_1fr] gap-y-1 text-[14px] text-gray-700">
             <span className="font-bold">일자</span>
             <span className="text-gray-600">
-              {performance.date_start} ~ {performance.date_finish}
+              {performance.date_start === performance.date_finish
+                ? `${performance.date_start} ${performance.time}`
+                : `${performance.date_start} ~ ${performance.date_finish} ${performance.time}`}
             </span>
 
-            <span className="font-bold">시간</span>
-            <span className="text-gray-600">{performance.time}</span>
+            <span className="font-bold">장소</span>
+            <span className="text-gray-600">{performance.location}</span>
 
             <span className="font-bold">가격</span>
             <span className="text-gray-600">

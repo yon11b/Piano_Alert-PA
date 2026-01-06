@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /config
+/old-code
 
 # testing
 /coverage
